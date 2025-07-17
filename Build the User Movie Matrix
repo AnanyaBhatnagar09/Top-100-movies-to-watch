@@ -1,0 +1,2 @@
+user_movie_matrix = merged_df.pivot_table(index='user_id', columns='title', values='rating')
+user_movie_matrix.head()
