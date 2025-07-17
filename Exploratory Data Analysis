@@ -1,0 +1,32 @@
+#Exploratory Data Analysis
+
+#a. Average Ratings per Movie
+avg_ratings = merged_df.groupby('title')['rating'].mean().sort_values(ascending=False)
+print(avg_ratings.head())
+
+#b.Number of Ratings per Movie
+num_ratings = merged_df.groupby('title')['rating'].count().sort_values(ascending=False)
+print(num_ratings.head())
+
+#c. Ratings Summary
+ratings_summary = pd.DataFrame({
+    'rating': avg_ratings,
+    'num_ratings': num_ratings
+})
+
+#d. Visualization
+plt.figure(figsize=(10,4))
+ratings_summary['num_ratings'].hist(bins=70)
+plt.title("Number of Ratings per Movie")
+plt.xlabel("Num of Ratings")
+plt.ylabel("Movie Count")
+plt.show()
+
+plt.figure(figsize=(10,4))
+ratings_summary['rating'].hist(bins=70)
+plt.title("Distribution of Average Ratings")
+plt.xlabel("Average Rating")
+plt.ylabel("Movie Count")
+plt.show()
+
+
