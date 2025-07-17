@@ -1,0 +1,3 @@
+# Top movies similar to 12 Angry Men with >100 ratings
+top_matrix_recommendations = corr_matrix[corr_matrix['num_ratings'] > 100].sort_values('Correlation', ascending=False)
+top_matrix_recommendations.head()
