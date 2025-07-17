@@ -1,0 +1,35 @@
+import warnings
+warnings.filterwarnings("ignore", category=RuntimeWarning)
+
+# Reference movies
+ref_movie_1 = '12 Angry Men (1957)'
+ref_movie_2 = 'Toy Story (1995)'
+
+# Ensure movies exist
+if ref_movie_1 in user_movie_matrix.columns and ref_movie_2 in user_movie_matrix.columns:
+    matrix_ratings = user_movie_matrix[ref_movie_1]
+    toystory_ratings = user_movie_matrix[ref_movie_2]
+
+    # Correlation with other movies
+    similar_to_matrix = user_movie_matrix.corrwith(matrix_ratings).dropna()
+    similar_to_toystory = user_movie_matrix.corrwith(toystory_ratings).dropna()
+
+    # Create correlation DataFrames
+    corr_matrix = pd.DataFrame(similar_to_matrix, columns=['Correlation'])
+    corr_matrix = corr_matrix.join(ratings_summary['num_ratings'])
+
+    corr_toystory = pd.DataFrame(similar_to_toystory, columns=['Correlation'])
+    corr_toystory = corr_toystory.join(ratings_summary['num_ratings'])
+
+    # Filter by number of ratings
+    filtered_matrix_corr = corr_matrix[corr_matrix['num_ratings'] > 100].sort_values('Correlation', ascending=False)
+    filtered_toystory_corr = corr_toystory[corr_toystory['num_ratings'] > 100].sort_values('Correlation', ascending=False)
+
+    # Display top results
+    print("Movies similar to 12 Angry Men:")
+    print(filtered_matrix_corr.head(10))
+
+    print("\nMovies similar to Toy Story:")
+    print(filtered_toystory_corr.head(10))
+else:
+    print("One or both reference movies not found in dataset.")
