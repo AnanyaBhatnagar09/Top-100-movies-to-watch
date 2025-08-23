@@ -1,2 +1,2 @@
-user_movie_matrix = merged_df.pivot_table(index='user_id', columns='title', values='rating')
-user_movie_matrix.head()
+trainset, testset = train_test_split(data, test_size=0.2, random_state=42)
+
