@@ -1,0 +1,11 @@
+# Initialize model
+model = SVD()
+
+# Train
+model.fit(trainset)
+
+# Evaluate
+predictions = model.test(testset)
+
+# Cross-validation results
+cross_validate(model, data, measures=['RMSE', 'MAE'], cv=5, verbose=True)
