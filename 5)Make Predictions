@@ -1,0 +1,5 @@
+# Predict rating of a user for a specific movie
+user_id = 1
+movie_title = 'Toy Story (1995)'
+pred = model.predict(user_id, movie_title)
+print(pred)
