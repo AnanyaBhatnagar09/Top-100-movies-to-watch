@@ -1,0 +1,26 @@
+# Predict rating of a user for a specific movie
+user_id = 1
+movie_title = 'Toy Story (1995)'
+pred = model.predict(user_id, movie_title)
+print(pred)
+def recommend_movies(user_id, num_recommendations=5):
+    # Get all unique movie titles
+    all_movies = merged_df['title'].unique()
+    
+    # Movies already rated by user
+    rated_movies = merged_df[merged_df['user_id'] == user_id]['title'].values
+    
+    # Predict ratings for unseen movies
+    predictions = []
+    for movie in all_movies:
+        if movie not in rated_movies:
+            pred = model.predict(user_id, movie)
+            predictions.append((movie, pred.est))
+    
+    # Sort and return top N
+    recommendations = sorted(predictions, key=lambda x: x[1], reverse=True)[:num_recommendations]
+    return recommendations
+
+# Example: Recommend for user_id=1
+print("Top Recommendations for User 1:")
+print(recommend_movies(1, 10))
